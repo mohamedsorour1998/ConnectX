@@ -1,0 +1,23 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+connectx-frontend/node_modules
+connectx-frontend/.pnp
+connectx-frontend/.pnp.js
+
+# testing
+connectx-frontend/coverage
+
+# production
+connectx-frontend/build
+
+# misc
+connectx-frontend/.DS_Store
+connectx-frontend/.env.local
+connectx-frontend/.env.development.local
+connectx-frontend/.env.test.local
+connectx-frontend/.env.production.local
+
+connectx-frontend/npm-debug.log*
+connectx-frontend/yarn-debug.log*
+connectx-frontend/yarn-error.log*
