@@ -10,23 +10,28 @@ import Footer from "./components/Footer";
 import Feed from "./components/Feed";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 const App = () => {
   return (
     <BrowserRouter>
-      <Navbar />
-      <div className="container mt-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/profile"
-            element={<ProtectedRoute component={Profile} />}
-          />
-          <Route path="/feed" element={<ProtectedRoute component={Feed} />} />
-        </Routes>
+      <div className="app-grid">
+        <Navbar />
+        <main className="main-content">
+          <div className="container mt-4">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/register" element={<Register />} />
+              <Route
+                path="/profile"
+                element={<ProtectedRoute component={Profile} />}
+              />
+              <Route path="/feed" element={<ProtectedRoute component={Feed} />} />
+            </Routes>
+          </div>
+        </main>
+        <Footer />
       </div>
-      <Footer />
     </BrowserRouter>
   );
 };

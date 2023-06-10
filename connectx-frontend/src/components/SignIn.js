@@ -1,90 +1,80 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { Container, Form, Button } from "react-bootstrap";
 import api from "../services/api";
 import { saveToken } from "../services/auth";
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validate: (values) => {
+      const errors = {};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors(validate(formData));
-    setIsSubmitting(true);
-  };
+      if (!values.email) {
+        errors.email = "Email is required";
+      } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+        errors.email = "Email is invalid";
+      }
 
-  const validate = (values) => {
-    let errors = {};
+      if (!values.password) {
+        errors.password = "Password is required";
+      }
 
-    if (!values.email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-      errors.email = "Email is invalid";
-    }
-
-    if (!values.password) {
-      errors.password = "Password is required";
-    }
-
-    return errors;
-  };
-
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      const signInUser = async () => {
-        try {
-          const response = await api.post("/api/users/login", formData);
-          saveToken(response.data.token);
-          navigate("/profile");
-        } catch (error) {
-          console.error(error);
-          alert("Error signing in");
-        }
-      };
-
-      signInUser();
-    }
-  }, [errors, formData, navigate, isSubmitting]);
+      return errors;
+    },
+    onSubmit: async (values) => {
+      try {
+        const response = await api.post("/api/auth/login", values);
+        saveToken(response.data.token);
+        navigate("/profile");
+      } catch (error) {
+        console.error(error);
+        alert("Error signing in");
+      }
+    },
+  });
 
   return (
-    <div>
+    <Container>
       <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
+      <Form onSubmit={formik.handleSubmit}>
+        <Form.Group>
+          <Form.Label htmlFor="email">Email</Form.Label>
+          <Form.Control
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            isInvalid={formik.errors.email && formik.touched.email}
           />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.email}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="password">Password</Form.Label>
+          <Form.Control
             type="password"
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            isInvalid={formik.errors.password && formik.touched.password}
           />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-        <button type="submit">Sign In</button>
-      </form>
-    </div>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.password}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Button type="submit">Sign In</Button>
+      </Form>
+    </Container>
   );
 };
 

@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     removeToken();
-    navigate("/home");
+    navigate("/");
   };
 
   const authLinks = (
@@ -55,24 +55,32 @@ const Navbar = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/" exact>
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/feed">
-                Feed
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/profile">
-                Profile
-              </NavLink>
-            </li>
-            {isAuthenticated() ? authLinks : guestLinks}
-          </ul>
+          <div className="row w-100">
+            <div className="col-lg-8">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/" exact>
+                    Home
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/feed">
+                    Feed
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/profile">
+                    Profile
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+            <div className="col-lg-4">
+              <ul className="navbar-nav">
+                {isAuthenticated() ? authLinks : guestLinks}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

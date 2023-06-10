@@ -1,124 +1,201 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+
+const RegisterSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(3, "Username must be at least 3 characters")
+    .max(30, "Username must be at most 30 characters")
+    .required("Username is required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(20, "Password must be at most 20 characters")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+  firstName: Yup.string()
+    .min(2, "First Name must be at least 2 characters")
+    .max(40, "First Name must be at most 40 characters"),
+  lastName: Yup.string()
+    .min(2, "Last Name must be at least 2 characters")
+    .max(40, "Last Name must be at most 40 characters"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  profileImage: Yup.string()
+    .url("Invalid URL format")
+    .required("Profile Image URL is required"),
+  bio: Yup.string()
+    .min(10, "Bio must be at least 10 characters")
+    .max(300, "Bio must be at most 300 characters")
+    .required("Bio is required"),
+});
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+      confirmPassword: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      profileImage: "",
+      bio: "",
+    },
+    validationSchema: RegisterSchema,
+    onSubmit: async (values) => {
+      const { confirmPassword, ...dataToSubmit } = values;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors(validate(formData));
-    setIsSubmitting(true);
-  };
-
-  const validate = (values) => {
-    let errors = {};
-
-    if (!values.name) {
-      errors.name = "Name is required";
-    }
-
-    if (!values.email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-      errors.email = "Email is invalid";
-    }
-
-    if (!values.password) {
-      errors.password = "Password is required";
-    } else if (values.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
-    }
-
-    if (!values.confirmPassword) {
-      errors.confirmPassword = "Please confirm your password";
-    } else if (values.confirmPassword !== values.password) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-
-    return errors;
-  };
-
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      const registerUser = async () => {
-        try {
-          await api.post("/api/users/register", formData);
-          navigate("/sign-in");
-        } catch (error) {
-          console.error(error);
-          alert("Error registering user");
-        }
-      };
-
-      registerUser();
-    }
-  }, [errors, formData, navigate, isSubmitting]);
+      try {
+        await api.post("/api/auth/register/", dataToSubmit);
+        navigate("/sign-in");
+      } catch (error) {
+        console.error(error);
+        console.log(dataToSubmit);
+        alert("Error registering user");
+      }
+    },
+  });
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {errors.name && <p>{errors.name}</p>}
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-          {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        </div>
-        <button type="submit">Register</button>
-      </form>
-    </div>
+    <Container>
+      <h1 className="my-4">Register</h1>
+      <Form onSubmit={formik.handleSubmit}>
+        <Row>
+          <Form.Group as={Col} controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              isInvalid={formik.errors.username && formik.touched.username}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.username}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId="firstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="firstName"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              isInvalid={formik.errors.firstName && formik.touched.firstName}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.firstName}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="lastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="lastName"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              isInvalid={formik.errors.lastName && formik.touched.lastName}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.lastName}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              isInvalid={formik.errors.email && formik.touched.email}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.email}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId="profileImage">
+            <Form.Label>Profile Image URL</Form.Label>
+            <Form.Control
+              type="text"
+              name="profileImage"
+              value={formik.values.profileImage}
+              onChange={formik.handleChange}
+              isInvalid={
+                formik.errors.profileImage && formik.touched.profileImage
+              }
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.profileImage}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId="bio">
+            <Form.Label>Bio</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              name="bio"
+              value={formik.values.bio}
+              onChange={formik.handleChange}
+              isInvalid={formik.errors.bio && formik.touched.bio}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.bio}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              isInvalid={formik.errors.password && formik.touched.password}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.password}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="confirmPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="confirmPassword"
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              isInvalid={
+                formik.errors.confirmPassword && formik.touched.confirmPassword
+              }
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.confirmPassword}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Button variant="primary" type="submit">
+          Register
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

@@ -21,3 +21,4 @@ connectx-frontend/.env.production.local
 connectx-frontend/npm-debug.log*
 connectx-frontend/yarn-debug.log*
 connectx-frontend/yarn-error.log*
+connectx-frontend/.env
