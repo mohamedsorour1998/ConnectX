@@ -20,6 +20,8 @@ exports.createPost = async (req, res) => {
   const { title, content, image } = req.body;
   const userId = req.userId;
 
+  console.log("Request body:", req.body);
+
   try {
     const post = new Post({ userId, title, content, image });
     await post.save();
@@ -117,7 +119,7 @@ exports.deleteComment = async (req, res) => {
       return res.status(404).json({ error: "Comment not found" });
     }
 
-    comment.remove();
+    post.comments.pull(commentId); // Use pull method to remove the comment
     await post.save();
     res.status(204).end();
   } catch (error) {

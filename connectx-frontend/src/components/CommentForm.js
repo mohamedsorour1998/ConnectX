@@ -1,37 +1,39 @@
-// CommentForm.js
-import React, { useState } from "react";
+import React from "react";
+import { Form, Button } from "react-bootstrap";
+import api from "./../services/api";
 
-const CommentForm = ({ onSubmit }) => {
-  const [content, setContent] = useState("");
+const CommentForm = ({ postId }) => {
+  const [content, setContent] = React.useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (content.trim()) {
-      onSubmit(content);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const commentData = { content };
+
+    try {
+      await api.post(`/api/posts/${postId}/comments`, commentData);
       setContent("");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error submitting comment:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-3">
-      <div className="form-group">
-        <label htmlFor="comment">Comment</label>
-        <textarea
-          className="form-control"
-          id="comment"
-          rows="3"
+    <Form onSubmit={handleSubmit} className="mt-3">
+      <Form.Group controlId="content">
+        <Form.Control
+          as="textarea"
+          rows={2}
+          placeholder="Write a comment..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
-        ></textarea>
-      </div>
-      <button
-        type="submit"
-        className="btn btn-primary"
-        disabled={!content.trim()}
-      >
-        Submit
-      </button>
-    </form>
+          required
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Add Comment
+      </Button>
+    </Form>
   );
 };
 

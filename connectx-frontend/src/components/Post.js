@@ -1,42 +1,48 @@
-// Post.js
 import React from "react";
+import { Card, Button } from "react-bootstrap";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
+import api from "./../services/api";
 
-const Post = ({ post, onCommentSubmit }) => {
-  const { title, content, user, comments, createdAt } = post;
+const Post = ({ post, onDelete }) => {
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/api/posts/${post._id}`);
+      onDelete(); // Call the onDelete function (fetchPosts) from the parent component
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
 
   return (
-    <div className="card mb-3">
-      <div className="card-body">
-        <h5 className="card-title">{title}</h5>
-        <p className="card-text">{content}</p>
-        <p className="card-text">
-          <small className="text-muted">Posted by {user.username}</small>
-        </p>
-        <p className="card-text">
-          <small className="text-muted">
-            {new Date(createdAt).toLocaleString()}
-          </small>
-        </p>
-        <hr />
-        <h6>Comments</h6>
-        {comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+    <Card className="my-3">
+      <Card.Body>
+        <Card.Title>{post.title}</Card.Title>
+        <Card.Text>{post.content}</Card.Text>
+        {post.image && (
+          <Card.Img variant="bottom" src={post.image} alt="Post Image" />
+        )}
+        <Card.Text className="mt-3">Comments:</Card.Text>
+        {post.comments.map((comment) => (
+          <Comment key={comment._id} comment={comment} postId={post._id} />
         ))}
-        <CommentForm
-          onSubmit={(commentContent) =>
-            onCommentSubmit(post.id, commentContent)
-          }
-        />
-      </div>
-    </div>
+        <CommentForm postId={post._id} />
+        <Button
+          variant="danger"
+          className="mt-3"
+          onClick={handleDelete}
+        >
+          Delete Post
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 
 export default Post;
-// We create a functional component called Post.
-// The component receives a post prop, which should be an object containing title, content, user, comments, and createdAt properties.
-// The component also receives an onCommentSubmit prop, which should be a function that gets called when a new comment is submitted.
-// We render each post as a Bootstrap card, displaying the title, content, username, timestamp, and comments.
-// We use the Comment component to render each comment and the CommentForm component to render the comment form.
+
+// Post.js: This component represents an individual post, including its title, content, 
+// and a list of associated comments. It receives the post data as props from the Feed.js component
+//  and renders the post information. Additionally, it renders a Comment component for each comment associated 
+//  with the post,
+//  as well as a CommentForm component to allow users to add new comments.
