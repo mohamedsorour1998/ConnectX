@@ -3,15 +3,7 @@ pipeline {
     stages {
         stage('Build and Push Docker Image') {
             steps {
-                sh echo "Building Docker image"
-                // withCredentials([usernamePassword(credentialsId: 'dockerhubaccount', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
-                //     // Login to Docker Hub
-                //     sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
-                //     // Build Docker image
-                //     sh "docker build -t mohamedsorour/jenkins_node ."
-                //     // Push Docker image to Docker Hub
-                //     sh "docker push mohamedsorour/jenkins_node"
-                // }
+                sh "echo 'Building Docker Image'"
             }
         }
     }
