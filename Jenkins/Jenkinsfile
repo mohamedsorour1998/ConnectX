@@ -3,8 +3,15 @@ pipeline {
     stages {
         stage('Build and Push Docker Image') {
             steps {
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                // login to docker hub
+                sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
+                // build docker image
                 sh "echo 'Building Docker Image'"
-            }
+                      
+                      
+                      
+                        }}
         }
     }
 }
