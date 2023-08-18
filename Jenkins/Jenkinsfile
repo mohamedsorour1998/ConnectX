@@ -11,16 +11,8 @@ pipeline {
                 //     sh "docker build -t mohamedsorour/jenkins_node ."
                 //     // Push Docker image to Docker Hub
                 //     sh "docker push mohamedsorour/jenkins_node"
-                }
+                // }
             }
-            // post {
-            //     success {
-            //         slackSend channel: '#jenkins', color: 'good', message: "Docker image pushed successfully"
-            //     }
-            //     failure {
-            //         slackSend channel: '#jenkins', color: 'danger', message: "Docker image failed to push"
-            //     }
-            // }
         }
     }
 }
