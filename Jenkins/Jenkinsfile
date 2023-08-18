@@ -4,10 +4,18 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                    // install docker
+                sh "curl -fsSL https://get.docker.com -o get-docker.sh"
+                sh "sh get-docker.sh"
+                sh "sudo usermod -aG docker jenkins"
+                sh "sudo systemctl start docker"
+                sh "sudo systemctl enable docker"
+                
                 // login to docker hub
                 sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
                 // build docker image
-                sh "echo 'Building Docker Image'"
+                sh "echo ${DOCKERHUB_USERNAME}"
+                sh "echo ${DOCKERHUB_PASSWORD}"
                       
                       
                       
