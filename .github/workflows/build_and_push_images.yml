@@ -21,7 +21,7 @@ jobs:
       - name: Build and push ConnectX-Frontend
         uses: docker/build-push-action@v2
         with:
-          context: Connectx-Frontend/
+          context: ConnectX-Frontend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/connectx-frontend:latest
       - name: Build and push ConnectX-Backend
