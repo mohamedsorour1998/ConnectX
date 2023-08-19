@@ -22,3 +22,4 @@ connectx-frontend/npm-debug.log*
 connectx-frontend/yarn-debug.log*
 connectx-frontend/yarn-error.log*
 connectx-frontend/.env
+Terraform/id_rsa
