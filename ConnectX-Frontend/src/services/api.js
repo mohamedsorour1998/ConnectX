@@ -2,7 +2,7 @@ import axios from "axios";
 import { loadToken } from "./auth";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "connectx-backend-deployment-service",
   headers: {
     "Content-Type": "application/json",
   },

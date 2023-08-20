@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connectx-frontend-deployment
+  labels:
+    app: connectx-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: connectx-frontend
+  template:
+    metadata:
+      labels:
+        app: connectx-frontend
+    spec:
+      containers:
+        - name: connectx-frontend
+          image: mohamedsorour/connectx-frontend
+          ports:
+            - containerPort: 3000
