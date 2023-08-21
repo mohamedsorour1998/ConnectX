@@ -1,24 +1,24 @@
 module "eks" {
-   source  = "terraform-aws-modules/eks/aws"
-   version = "19.15.1"
-   
-   cluster_name    = "ConnectX-Cluster"
-   cluster_version = "1.27"
-   subnets         = [aws_subnet.main.id, aws_subnet.main2.id]
-   vpc_id          = aws_vpc.main.id
+  source  = "terraform-aws-modules/eks/aws"
+  version = "19.15.1"
 
-   node_groups = {
-      eks_nodes = {
-         desired_capacity = 1
-         max_capacity     = 1
-         min_capacity     = 1
-         instance_type = "m5.large"
-         key_name      = "my-key"
-         k8s_labels = {
-            Name        = "eks-worker-group"
-         }
+  cluster_name    = "ConnectX-Cluster"
+  cluster_version = "1.27"
+  subnets         = [aws_subnet.main.id, aws_subnet.main2.id]
+  vpc_id          = aws_vpc.main.id
+
+  node_groups = {
+    eks_nodes = {
+      desired_capacity = 1
+      max_capacity     = 1
+      min_capacity     = 1
+      instance_type    = "t2.micro"
+      key_name         = "aws"
+      k8s_labels = {
+        Name = "eks-worker-group"
       }
-   }
+    }
+  }
 }
 
 
