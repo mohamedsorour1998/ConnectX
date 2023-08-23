@@ -1,70 +1,157 @@
-# Getting Started with Create React App
+# ConnectX-Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The ConnectX frontend is built using React and follows a modular structure, utilizing components to create a seamless user experience. This documentation provides an overview of each major component, their purposes, usage, and any relevant implementation details.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+1. [App.js](#appjs)
+2. [Navbar.js](#navbarjs)
+3. [Home.js](#homejs)
+4. [Feed.js](#feedjs)
+5. [Post.js](#postjs)
+6. [Comment.js](#commentjs)
+7. [CommentForm.js](#commentformjs)
+8. [Profile.js](#profilejs)
+9. [ProtectedRoute.js](#protectedroutejs)
+10. [Register.js](#registerjs)
+11. [SignIn.js](#signinjs)
+12. [Footer.js](#footerjs)
 
-### `npm start`
+## Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### App.js
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Purpose:** The root component that sets up routing for the application and manages the main layout structure.
 
-### `npm test`
+**Usage:** Renders the application's layout, including the navigation bar, main content area, and footer.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Implementation Details:** Uses React Router to set up routes for the application. Uses Bootstrap for styling and layout.
 
-### `npm run build`
+### Navbar.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Purpose:** Displays the navigation bar at the top of the page, allowing users to navigate between different sections of the app.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Usage:** Displays navigation links based on user authentication status.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Implementation Details:** Uses React Router to set up navigation links. Uses Bootstrap for styling and layout.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Home.js
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Purpose:** Provides a landing page with a carousel showcasing various images and captions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Usage:** Displays a carousel with images and captions related to the app.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Feed.js
 
-## Learn More
+**Purpose:** Displays a feed of posts, allowing users to view and interact with them.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Usage:** Renders a list of posts, including options to add and delete posts.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Implementation Details:** Fetches and displays posts from the backend using the `api` service. Utilizes the `Post` component to render individual posts.
 
-### Code Splitting
+### Post.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Purpose:** Represents an individual post, including its title, content, comments, and options for deleting.
 
-### Analyzing the Bundle Size
+**Usage:** Displays detailed information about a post, including comments associated with it.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Implementation Details:** Utilizes the `Comment` component to display comments and the `CommentForm` component to add new comments. Provides an option to delete the post.
 
-### Making a Progressive Web App
+### Comment.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Purpose:** Displays an individual comment on a post, along with a delete button.
 
-### Advanced Configuration
+**Usage:** Renders comments associated with a post.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Implementation Details:** Displays comment content and provides a delete button that calls the backend API to remove the comment.
 
-### Deployment
+### CommentForm.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Purpose:** Provides a form for users to add comments to a post.
 
-### `npm run build` fails to minify
+**Usage:** Allows users to submit comments on a post.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Implementation Details:** Utilizes the `api` service to send POST requests to the backend when users submit a new comment.
+
+### Profile.js
+
+**Purpose:** Displays the user's profile information.
+
+**Usage:** Displays user details such as username, name, email, bio, and profile image.
+
+**Implementation Details:** Fetches user profile data from the backend using the `api` service. Uses Bootstrap for styling and layout.
+
+### ProtectedRoute.js
+
+**Purpose:** Protects certain routes by checking user authentication status before rendering.
+
+**Usage:** Ensures that only authenticated users can access specific routes.
+
+**Implementation Details:** Uses `useEffect` to check authentication status and conditionally renders the specified component or redirects to the sign-in page.
+
+### Register.js
+
+**Purpose:** Provides a registration form for new users.
+
+**Usage:** Allows new users to create an account by filling out the registration form.
+
+**Implementation Details:** Utilizes the `api` service to send POST requests to the backend for user registration. Utilizes the `formik` library for form handling and validation.
+
+### SignIn.js
+
+**Purpose:** Displays a sign-in form for existing users to log in.
+
+**Usage:** Allows existing users to log in to their accounts.
+
+**Implementation Details:** Utilizes the `api` service to send POST requests to the backend for user authentication. Uses `formik` for form handling and validation.
+
+### Footer.js
+
+**Purpose:** Displays the footer at the bottom of the page with contact information and social media links.
+
+**Usage:** Displays information about the application and its creators.
+
+**Implementation Details:** Uses Bootstrap to structure and style the footer. Provides links to social media profiles.
+
+## Key Features
+
+- User-friendly interface for viewing, adding, and interacting with posts and comments.
+- Secure user authentication and registration system.
+- Profile page displaying user information.
+
+## Requirements
+
+- Node.js
+- React
+- React Router
+- Bootstrap
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/mohamedsorour1998/ConnectX.git`
+2. Navigate to the project directory: `cd ConnectX-Frontend`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm start`
+5. Open your browser and navigate to: `http://localhost:3000`
+
+OR:
+
+1. Deploy the application on AWS EKS using the CI/CD workflow.
+2. Refer to the documentation for detailed instructions on how to deploy the application on AWS EKS.
+
+## Documentation
+
+For detailed information on how to install, configure, and use ConnectX, please refer to the documentation provided in the README files of the backend and frontend directories. Additionally, consult the documentation of the tools and technologies used in the project for more details.
+
+## Contributing
+
+Contributions to ConnectX-Frontend are welcome! If you have any suggestions, improvements, or bug fixes, please open an issue or submit a pull request.
+
+## License
+
+ConnectX is released under the MIT License.
+
+## Authors
+
+- Mohamed Sorour - [@mohamedsorour1998](mohamedsorour1998)
