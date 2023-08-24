@@ -28,8 +28,6 @@ OR:
 1. Deploy the application on AWS EKS using the CI/CD workflow.
 2. Refer to the documentation for detailed instructions on how to deploy the application on AWS EKS.
 
-   
-
 ## API Endpoints
 
 ### User Endpoints

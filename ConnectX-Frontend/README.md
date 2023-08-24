@@ -35,7 +35,6 @@ The ConnectX frontend is built using React and follows a modular structure, util
 
 **Implementation Details:** Uses React Router to set up navigation links. Uses Bootstrap for styling and layout.
 
-
 ### Home.js
 
 **Purpose:** Provides a landing page with a carousel showcasing various images and captions.
