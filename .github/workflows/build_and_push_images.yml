@@ -58,11 +58,11 @@ jobs:
           mkdir ${HOME}/.kube
           echo "${{ secrets.KUBECONFIG_CONTENTS }}" > ${HOME}/.kube/config
 
-      - name: Delete old Deployments and Services
+      - name: Delete Old Deployments and Services
         run: |
-          # kubectl delete deployments connectx-backend-deployment
-          # kubectl delete deployments connectx-frontend-deployment
-          # kubectl delete svc connectx-frontend-deployment-service
+          kubectl delete deployments connectx-backend-deployment
+          kubectl delete deployments connectx-frontend-deployment
+          kubectl delete svc connectx-frontend-deployment-service
           kubectl delete svc connectx-backend-deployment-service
 
       - name: Apply New Deployments and Services
