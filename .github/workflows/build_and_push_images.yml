@@ -60,3 +60,4 @@ jobs:
 
       - name: Apply Kubernetes specs
         run: kubectl apply -f Kubernates/
+        

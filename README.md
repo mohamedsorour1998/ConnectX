@@ -43,9 +43,24 @@ The backend of ConnectX is built using NodeJS, Express, and MongoDB. It follows 
 
 The frontend of ConnectX is built using React and follows a modular component structure. It provides a user-friendly interface for interacting with the social media features. Refer to the frontend documentation for an overview of the available components and their functionalities.
 
-## Deployment on AWS EKS
+## Configuring AWS EKS
 
-ConnectX can be deployed on AWS using EKS (Elastic Kubernetes Service). Follow the AWS documentation for detailed instructions on how to set up an EKS cluster and deploy the ConnectX application on it.
+ConnectX can be deployed on AWS using EKS (Elastic Kubernetes Service).
+Use the following command to create the required AWS resources using eksctl tool:
+
+eksctl create cluster \
+--name connectx \
+--version 1.27 \
+--region us-east-1 \
+--nodegroup-name connectx-workers \
+--node-type t2.micro \
+--nodes 2 \
+--nodes-min 1 \
+--nodes-max 4 \
+--ssh-access \
+--ssh-public-key ~/.ssh/id_rsa.pub \
+--managed \
+--vpc-public-subnets=<REPLACE_WITH_YOU_PUBLIC_SUBNETS_IDS_CREATED_FROM_TERRAFORM> \
 
 ## CI/CD using GitHub Actions
 
