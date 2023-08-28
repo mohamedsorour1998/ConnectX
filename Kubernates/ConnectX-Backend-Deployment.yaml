@@ -19,3 +19,4 @@ spec:
           image: mohamedsorour/connectx-backend
           ports:
             - containerPort: 3000
+            

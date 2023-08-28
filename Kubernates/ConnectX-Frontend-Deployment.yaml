@@ -19,3 +19,4 @@ spec:
           image: mohamedsorour/connectx-frontend
           ports:
             - containerPort: 3000
+            
