@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: connectx-backend-deployment-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: connectx-backend
   ports:
