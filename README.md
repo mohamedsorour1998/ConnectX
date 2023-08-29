@@ -1,6 +1,7 @@
 # ConnectX: Cloud Full-Stack Social Media Project
 
 ConnectX is a cloud full-stack social media website built with React and NodeJS. It provides a platform for users to connect, share posts, and interact with other users. The project uses a MongoDB database running in the cloud and is deployed on AWS using EKS. GitHub Actions is employed as a CI/CD tool, and Terraform is used for Infrastructure as Code (IaC) to provision the AWS resources.
+![Screenshot 2023-08-29 213704](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/95d6f1f3-38d1-4f2a-bbfe-2ae633ea5ccf)
 
 ## Key Features
 
@@ -32,8 +33,10 @@ Before getting started with ConnectX, ensure that your development environment m
 ### Infrastructure Requirements
 
 - Amazon Web Services (AWS) account
-- Kubernetes (K8s)
+- Kubernetes (K8s) using EKS
+  ![Screenshot 2023-08-28 135003](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/52ce9b9b-4883-4026-b0f5-a8b216531a80)
 - Terraform
+  ![Screenshot 2023-08-28 130242](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/86810807-6141-477c-b1ba-fa01c517a86e)
 
 ## Backend
 
@@ -62,9 +65,13 @@ eksctl create cluster \
 --managed \
 --vpc-public-subnets=<REPLACE_WITH_YOU_PUBLIC_SUBNETS_IDS_CREATED_FROM_TERRAFORM> \
 
+![Screenshot 2023-08-28 130305](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/5e186aa0-44ee-4375-99f4-7275ec9abe54)
+
 ## CI/CD using GitHub Actions
 
 GitHub Actions is used for Continuous Integration and Continuous Deployment (CI/CD) in the ConnectX project. The CI/CD workflow is configured in the `.github/workflows/build_and_push_images.yml` file. It builds and pushes Docker images for the backend and frontend applications and deploys the application to the EKS cluster. Configure the workflow according to your specific requirements and environment.
+
+![Screenshot 2023-08-28 132825](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/9a8d9a34-fd36-402d-a613-2ac7e44492fd)
 
 ## Documentation
 
