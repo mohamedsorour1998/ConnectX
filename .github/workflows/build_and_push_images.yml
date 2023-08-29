@@ -1,9 +1,10 @@
 name: Build and Push Docker Images and Deploy to AWS EKS
 
-on:
-  push:
-    branches:
-      - main
+on: {}
+# uncomment to automatically trigger on push
+# push:
+#   branches:
+#     - main
 
 jobs:
   build_and_push:
