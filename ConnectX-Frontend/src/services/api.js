@@ -3,7 +3,7 @@ import { loadToken } from "./auth";
 
 const api = axios.create({
   baseURL:
-    "http://aa2809da0a6cb45779dd895d24e4d8bc-230234518.us-east-1.elb.amazonaws.com",
+    "http://af5e57bee47ad41089d3c3e74ece4518-1229882055.us-east-1.elb.amazonaws.com",
   headers: {
     "Content-Type": "application/json",
   },
