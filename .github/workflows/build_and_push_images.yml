@@ -1,4 +1,4 @@
-name: Build and Push Docker Images
+name: Build and Push Docker Images and Deploy to AWS EKS
 
 on:
   push:
@@ -48,12 +48,12 @@ jobs:
           mkdir ${HOME}/.kube
           echo "${{ secrets.KUBECONFIG_CONTENTS }}" > ${HOME}/.kube/config
 
-      - name: Delete Old Deployments and Services
-        run: |
-          kubectl delete deployments connectx-backend-deployment
-          kubectl delete deployments connectx-frontend-deployment
-          kubectl delete svc connectx-frontend-deployment-service
-          kubectl delete svc connectx-backend-deployment-service
+      # - name: Delete Old Deployments and Services
+      #   run: |
+      #     kubectl delete deployments connectx-backend-deployment
+      #     kubectl delete deployments connectx-frontend-deployment
+      #     kubectl delete svc connectx-frontend-deployment-service
+      #     kubectl delete svc connectx-backend-deployment-service
 
       - name: Apply New Deployments and Services
         run: |
