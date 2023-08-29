@@ -1,6 +1,6 @@
 # ConnectX: Cloud Full-Stack Social Media Project
 
-ConnectX is a cloud full-stack social media website built with React and NodeJS. It provides a platform for users to connect, share posts, and interact with other users. The project uses a MongoDB database running in the cloud and is deployed on AWS using EKS. GitHub Actions is employed as a CI/CD tool, and Terraform is used for Infrastructure as Code (IaC) to provision the AWS resources. 
+ConnectX is a cloud full-stack social media website built with React and NodeJS. It provides a platform for users to connect, share posts, and interact with other users. The project uses a MongoDB database running in the cloud and is deployed on AWS using EKS. GitHub Actions is employed as a CI/CD tool, and Terraform is used as Infrastructure as Code (IaC) tool to provision the AWS resources. 
 SEE IT LIVE => https://www.linkedin.com/feed/update/urn:li:activity:7102362733018329088/
 ![Screenshot 2023-08-29 213704](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/95d6f1f3-38d1-4f2a-bbfe-2ae633ea5ccf)
 ![Screenshot 2023-08-29 221745](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/a71fe2d2-6ccf-4fef-aa5d-97182c43198b)
