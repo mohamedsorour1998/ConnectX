@@ -40,16 +40,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-          # The kubeconfig file is automatically created when you create an Amazon EKS cluster. It is a configuration file that your kubectl command-line tool uses to communicate with your Kubernetes API server. Your Amazon EKS cluster endpoint and certificate authority data are stored in this file.
-          # Here are the steps to retrieve your kubeconfig:
-          # 1. Install and configure the AWS CLI and `kubectl` on your local machine.
-          # 2. After creating an EKS cluster, use the following AWS CLI update-kubeconfig command to create or update your kubeconfig for your cluster:
-          # aws eks update-kubeconfig --region <region-code> --name <cluster-name>
-          # Replace `<region-code>` with your AWS region (like us-east-1) and `<cluster-name>` with the name of your EKS cluster.
-          # This command will create (if not exists) or update the kubeconfig file in the default location (`~/.kube/config`) or create/update the file mentioned in `$KUBECONFIG` environment variable.
-          # 3. Open the config file located in your home directory under the .kube directory (`~/.kube/config`).
-          # 4. The content of this file is what you need to put in the GitHub secret. Please ensure you put `---` at the end of the kubeconfig contents to indicate the end of a YAML document.
-          # This kubeconfig will allow GitHub Actions to interact with your Amazon EKS cluster.
       - name: Install and configure kubectl
         run: |
           curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -62,12 +52,12 @@ jobs:
         run: |
           kubectl delete deployments connectx-backend-deployment
           kubectl delete deployments connectx-frontend-deployment
-          # kubectl delete svc connectx-frontend-deployment-service
-          # kubectl delete svc connectx-backend-deployment-service
+          kubectl delete svc connectx-frontend-deployment-service
+          kubectl delete svc connectx-backend-deployment-service
 
       - name: Apply New Deployments and Services
         run: |
           kubectl apply -f Kubernates/ConnectX-Backend-Deployment.yaml
           kubectl apply -f Kubernates/ConnectX-Frontend-Deployment.yaml
-          # kubectl apply -f Kubernates/ConnectX-Backend-Deployment-Service.yaml
-          # kubectl apply -f Kubernates/ConnectX-Frontend-Deployment-Service.yaml
+          kubectl apply -f Kubernates/ConnectX-Backend-Deployment-Service.yaml
+          kubectl apply -f Kubernates/ConnectX-Frontend-Deployment-Service.yaml
