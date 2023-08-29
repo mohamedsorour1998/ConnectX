@@ -72,7 +72,7 @@ eksctl create cluster \
 
 GitHub Actions is used for Continuous Integration and Continuous Deployment (CI/CD) in the ConnectX project. The CI/CD workflow is configured in the `.github/workflows/build_and_push_images.yml` file. It builds and pushes Docker images for the backend and frontend applications and deploys the application to the EKS cluster. Configure the workflow according to your specific requirements and environment.
 
-![Screenshot 2023-08-28 132825](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/9a8d9a34-fd36-402d-a613-2ac7e44492fd)
+![Screenshot 2023-08-29 220907](https://github.com/mohamedsorour1998/ConnectX/assets/110028481/42dd78fc-f6d7-4887-8035-b568e0dc8a25)
 
 ## Documentation
 
